@@ -8,15 +8,14 @@ type annotations to the function
 
 
 import typing
-from typing import TypeVar, Optional
-T = TypeVar('T')
+T = typing.TypeVar('T')
 
 
 def safely_get_value(
         dct: typing.Mapping,
         key: typing.Any,
-        default: typing.Union[Optional[T], None] = None
-        ) -> typing.Union[typing.Any, Optional[T]]:
+        default: typing.Union[typing.Optional[T], None] = None
+        ) -> typing.Union[typing.Any, typing.Optional[T]]:
     '''Safely retrieve value from dict
     using key'''
     if key in dct:
