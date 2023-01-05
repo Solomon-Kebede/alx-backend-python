@@ -11,11 +11,13 @@ from typing import Tuple, List
 
 
 def zoom_array(lst: List, factor: typing.Union[int, float] = 2) -> List:
+    '''Zoom Array Docstrings'''
     zoomed_in: List = [
         item for item in lst
         for i in range(int(factor))
     ]
     return zoomed_in
+
 
 zoom_array.__annotations__ = {
     'lst': 'typing.Tuple',
