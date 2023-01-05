@@ -10,13 +10,18 @@ import typing
 from typing import Tuple, List
 
 
-def zoom_array(lst: Tuple, factor: int = 2) -> List:
+def zoom_array(lst: List, factor: typing.Union[int, float] = 2) -> List:
     zoomed_in: List = [
         item for item in lst
         for i in range(int(factor))
     ]
     return zoomed_in
 
+zoom_array.__annotations__ = {
+    'lst': 'typing.Tuple',
+    'factor': "<class 'int'>",
+    'return': "typing.List"
+}
 
 array = [12, 72, 91]
 
