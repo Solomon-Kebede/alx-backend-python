@@ -14,6 +14,7 @@ import asyncio
 import random
 import typing
 
+
 async def async_generator() -> typing.Generator[float, None, None]:
     '''Async Generator'''
     for i in range(10):
