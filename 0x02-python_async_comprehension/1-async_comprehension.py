@@ -12,4 +12,5 @@ return the 10 random numbers.
 
 
 async def async_comprehension():
+    '''Async Comprehension'''
     return [i async for i in async_generator()]
