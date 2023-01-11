@@ -12,8 +12,8 @@ return the 10 random numbers.
 
 import asyncio
 async_generator = __import__('0-async_generator').async_generator
+import typing
 
-
-async def async_comprehension():
+async def async_comprehension() -> typing.List[float]:
     '''Async Comprehension'''
     return [i async for i in async_generator()]
