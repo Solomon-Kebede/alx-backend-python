@@ -9,7 +9,7 @@ from utils import access_nested_map
 from parameterized import parameterized
 from utils import get_json
 from unittest.mock import MagicMock, patch
-# from utils import requests
+from utils import memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -53,6 +53,32 @@ class TestGetJson(unittest.TestCase):
         mock_response.json.return_value = test_payload
         mock_requests.get.return_value = mock_response
         self.assertEqual(get_json(test_url), test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    '''Testsuite for utils.memoize'''
+    def test_memoize(self):
+        '''Testcase for utils.memoize'''
+        class TestClass:
+            '''TestClass class'''
+            def a_method(self):
+                '''Returns 42'''
+                return 42
+
+            @memoize
+            def a_property(self):
+                '''Property method'''
+                return self.a_method()
+
+        with patch.object(
+            TestClass,
+            'a_method',
+            return_value=42
+        ) as mock_method:
+            instance = TestClass()
+            instance.a_property
+            instance.a_property
+        mock_method.assert_called_once()
 
 
 if __name__ == '__main__':
