@@ -6,13 +6,13 @@ Test for client.GithubOrgClient
 
 import unittest
 from parameterized import parameterized
-# from utils import access_nested_map
 from client import get_json
 from unittest.mock import MagicMock, patch
 # from utils import memoize
 from client import GithubOrgClient
 
 from unittest.mock import create_autospec
+from unittest.mock import PropertyMock
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -31,6 +31,17 @@ class TestGithubOrgClient(unittest.TestCase):
         instance = GithubOrgClient(org_name)
         instance.org()
         mock_get_json.assert_called_once_with(org_url)
+
+    @parameterized.expand([
+        ('google'),
+        ('abc'),
+    ])
+    def test_public_repos_url(self, org_name):
+        '''Testcase for client.GithubOrgClient._public_repos_url'''
+        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_public_repos_url:
+            mock_public_repos_url.return_value = {}
+            instance = GithubOrgClient(org_name)
+            self.assertEqual(GithubOrgClient._public_repos_url, {})
 
 
 if __name__ == '__main__':
