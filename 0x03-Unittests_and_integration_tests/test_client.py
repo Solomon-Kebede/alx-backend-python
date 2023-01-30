@@ -13,6 +13,7 @@ from client import GithubOrgClient
 
 from unittest.mock import create_autospec
 from unittest.mock import PropertyMock
+from utils import access_nested_map
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -69,10 +70,20 @@ class TestGithubOrgClient(unittest.TestCase):
             instance = GithubOrgClient(org_name)
             '''Test that the repo list is what you expect
             from the chosen payload'''
-            self.assertEqual(instance.public_repos(), repos_list)
+            self.assertEqual(instance.public_repos(None), repos_list)
         # Test that the mocked property and the mocked get_json was called once
         mock_public_repos_url.assert_called_once()
         mock_get_json.assert_called_once()
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False),
+    ])
+    def test_has_license(self, repo, license_key, boolen_return):
+        '''Testcase for client.GithubOrgClient.has_license'''
+        self.assertEqual(
+            GithubOrgClient.has_license(repo, license_key), boolen_return
+        )
 
 
 if __name__ == '__main__':
