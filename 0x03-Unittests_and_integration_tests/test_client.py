@@ -85,6 +85,9 @@ class TestGithubOrgClient(unittest.TestCase):
             GithubOrgClient.has_license(repo, license_key), boolen_return
         )
 
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    '''Test the GithubOrgClient.public_repos method in an integration test'''
+    pass
 
 if __name__ == '__main__':
     unittest.main()
